@@ -4,3 +4,9 @@ c:\users\home\documents\visual studio 2015\Projects\WaterInGlasses\WaterInGlasse
 c:\users\home\documents\visual studio 2015\Projects\WaterInGlasses\WaterInGlasses\obj\Debug\WaterInGlasses.csprojResolveAssemblyReference.cache
 c:\users\home\documents\visual studio 2015\Projects\WaterInGlasses\WaterInGlasses\obj\Debug\WaterInGlasses.exe
 c:\users\home\documents\visual studio 2015\Projects\WaterInGlasses\WaterInGlasses\obj\Debug\WaterInGlasses.pdb
+D:\Projects\VisualStudio\C#\WaterDistribution\WaterInGlasses\bin\Debug\WaterInGlasses.exe.config
+D:\Projects\VisualStudio\C#\WaterDistribution\WaterInGlasses\obj\Debug\WaterInGlasses.exe
+D:\Projects\VisualStudio\C#\WaterDistribution\WaterInGlasses\obj\Debug\WaterInGlasses.pdb
+D:\Projects\VisualStudio\C#\WaterDistribution\WaterInGlasses\bin\Debug\WaterInGlasses.exe
+D:\Projects\VisualStudio\C#\WaterDistribution\WaterInGlasses\bin\Debug\WaterInGlasses.pdb
+D:\Projects\VisualStudio\C#\WaterDistribution\WaterInGlasses\obj\Debug\WaterInGlasses.csprojResolveAssemblyReference.cache

@@ -20,33 +20,31 @@ namespace WaterInGlasses
     {
         List<Glass> glassList = new List<Glass>();
 
-        public bool IsPossibleToDistribute(IList<Glass> glassList, int amountToDistribute)
+        public bool CheckIteration(IList<Glass> glassList, int[] indexes, int amountToDistribute)
         {
             int waterRemain = amountToDistribute;
 
-            foreach (Glass glass in glassList)
+            foreach (var i in indexes)
             {
-                if (waterRemain < glass.minCapacity)
+                var glass = glassList[i];
+                if (glass.minCapacity <= waterRemain)
                 {
-                    continue;
+                    glass.amount = glass.minCapacity;
+                    waterRemain -= glass.minCapacity;
                 }
+            }
 
-                if (waterRemain > glass.maxCapacity)
+            foreach (var glass in glassList)
+            {
+                var additionalAmount = Math.Min(glass.maxCapacity - glass.amount, waterRemain);
+                if (additionalAmount > 0)
                 {
-                    glass.amount = glass.maxCapacity;
-                    waterRemain = waterRemain - glass.maxCapacity;
+                    if (additionalAmount > glass.minCapacity - glass.amount)
+                    {
+                        glass.amount += additionalAmount;
+                        waterRemain -= additionalAmount;
+                    }
                 }
-                else
-                {
-                    glass.amount = waterRemain;
-                    waterRemain = 0;
-                }
-
-                if (waterRemain == 0)
-                {
-                    break;
-                }
-
             }
 
             if (waterRemain == 0)
@@ -57,10 +55,29 @@ namespace WaterInGlasses
             {
                 return false;
             }
+
         }
 
+        public void ClearAmount(IList<Glass> glassList)
+        {
+            foreach (var glass in glassList)
+                glass.amount = 0;
+        }
 
-
+        public bool IsPossibleToDistribute(IList<Glass> glassList, int amountToDistribute)
+        {
+            var permutations = Permutations.GetPer(
+                Enumerable.Range(0, glassList.Count).ToArray());
+            foreach (var permutation in permutations)
+            {
+                if (this.CheckIteration(glassList, permutation, amountToDistribute))
+                {
+                    return true;
+                }
+                this.ClearAmount(glassList);
+            }
+            return false;
+        }
 
         static void Main(string[] args)
         {
@@ -75,14 +92,11 @@ namespace WaterInGlasses
 
             WaterDistribution waterdistribution = new WaterDistribution();
 
-            Glass glass1 = new Glass() { name = "glass1", minCapacity = 20, maxCapacity = 100 };
-            Glass glass2 = new Glass() { name = "glass1", minCapacity = 10, maxCapacity = 50 };
-            Glass glass3 = new Glass() { name = "glass1", minCapacity = 0, maxCapacity = 20 };
-
             List<Glass> glassesList = new List<Glass>();
-            glassesList.Add(glass1);
-            glassesList.Add(glass2);
-            glassesList.Add(glass3);
+            glassesList.Add(new Glass() { name = "glass1", minCapacity = 20, maxCapacity = 21 });
+            glassesList.Add(new Glass() { name = "glass2", minCapacity = 80, maxCapacity = 81 });
+            glassesList.Add(new Glass() { name = "glass3", minCapacity = 100, maxCapacity = 100 });
+            glassesList.Add(new Glass() { name = "glass4", minCapacity = 1000, maxCapacity = 1000 });
 
             if (waterdistribution.IsPossibleToDistribute(glassesList, amountForDistribution))
             {
@@ -97,6 +111,7 @@ namespace WaterInGlasses
             {
                 Console.WriteLine(string.Format("{0}{1}", Environment.NewLine, "Impsossible"));
             }
+
 
             Console.ReadKey();
 
